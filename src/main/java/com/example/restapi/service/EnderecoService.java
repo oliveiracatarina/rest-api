@@ -12,7 +12,7 @@ public class EnderecoService {
         endereco.setCep("12345-678");
         endereco.setBairro("Alphaville");
         endereco.setCidade("Barueri");
-        endereco.setEstado("São Paulo");
+        endereco.setEstado("Sao Paulo");
         return endereco;
     }
 }

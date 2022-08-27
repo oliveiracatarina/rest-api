@@ -9,11 +9,11 @@ import java.time.LocalDate;
 @Service
 public class PessoaService {
 
-    public Pessoa montarPessoa(){
+    public Pessoa montarPessoa(String nome, String data, String email){
         Pessoa pessoa  = new Pessoa();
-        pessoa.setNome("Catarina");
-        pessoa.setAniversario(LocalDate.parse("2004-06-03"));
-        pessoa.setEmail("catarina@gmail.com");
+        pessoa.setNome(nome);
+        pessoa.setAniversario(LocalDate.parse(data));
+        pessoa.setEmail(email);
         return pessoa;
     }
 
