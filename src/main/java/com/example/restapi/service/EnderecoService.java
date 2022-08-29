@@ -5,14 +5,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class EnderecoService {
-    public Endereco montarEndereco(){
+    public Endereco montarEndereco(String logradouro, String numero, String cep, String bairro,
+                                   String cidade, String estado){
         Endereco endereco = new Endereco();
-        endereco.setLogradouro("Rua Brasil");
-        endereco.setNumero("123");
-        endereco.setCep("12345-678");
-        endereco.setBairro("Alphaville");
-        endereco.setCidade("Barueri");
-        endereco.setEstado("Sao Paulo");
+        endereco.setLogradouro(logradouro);
+        endereco.setNumero(numero);
+        endereco.setCep(cep);
+        endereco.setBairro(bairro);
+        endereco.setCidade(cidade);
+        endereco.setEstado(estado);
         return endereco;
     }
 }

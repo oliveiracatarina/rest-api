@@ -26,11 +26,17 @@ public class PessoaController {
     public Pessoa getPessoa(
             @RequestParam(value = "nome") String nome,
             @RequestParam(value = "data") String data,
-            @RequestParam(value = "email") String email
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "logradouro") String logradouro,
+            @RequestParam(value = "numero") String numero,
+            @RequestParam(value = "cep") String cep,
+            @RequestParam(value = "bairro") String bairro,
+            @RequestParam(value = "cidade") String cidade,
+            @RequestParam(value = "estado") String estado
     ){
         Pessoa pessoa  = pessoaService.montarPessoa(nome, data, email);
 
-        Endereco endereco = enderecoService.montarEndereco();
+        Endereco endereco = enderecoService.montarEndereco(logradouro, numero, cep, bairro, cidade, estado);
 
         pessoa.setEndereco(endereco);
 
