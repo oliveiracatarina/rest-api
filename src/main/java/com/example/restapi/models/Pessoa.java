@@ -3,6 +3,8 @@ package com.example.restapi.models;
 import java.time.LocalDate;
 
 public class Pessoa {
+
+    private String codigo;
     private String nome;
     private LocalDate aniversario;
     private String email;
@@ -22,6 +24,14 @@ public class Pessoa {
 
 
     //método get e set
+
+    public String getCodigo() {
+        return this.codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 
     public String getNome(){
         return this.nome;
