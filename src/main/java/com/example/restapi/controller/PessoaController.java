@@ -5,6 +5,8 @@ import com.example.restapi.models.Pessoa;
 import com.example.restapi.service.EnderecoService;
 import com.example.restapi.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -42,8 +44,13 @@ public class PessoaController {
     }
 
     @GetMapping("buscar")
-    public Pessoa buscarPessoa(@RequestParam String codigo){
-        return null;
+    public ResponseEntity buscarPessoa(@RequestParam String codigo){
+        Pessoa pessoa = pessoaService.buscarPessoa(codigo);
+        if (pessoa == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa não encontrada");
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(pessoa);
+        }
     }
 
     @PostMapping
