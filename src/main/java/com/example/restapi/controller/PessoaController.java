@@ -62,4 +62,10 @@ public class PessoaController {
     public List<Pessoa>  listarTodos(){
         return pessoaService.listarPessoas();
     }
+
+    @DeleteMapping("apagar")
+    public Pessoa apagarPessoa(@RequestParam (value = "codigo") String codigo ) {
+        return pessoaService.apagarPessoa(codigo);
+    }
+
 }

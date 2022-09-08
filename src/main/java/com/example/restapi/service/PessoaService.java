@@ -46,6 +46,10 @@ public class PessoaService {
     }
     public Pessoa apagarPessoa(String codigo) {
         for (Pessoa pessoa : pessoas) {
+            if (pessoa.getCodigo().equals(codigo)) {
+              pessoas.remove(pessoa);
+              return pessoa;
+            }
 
         }
         return null;
