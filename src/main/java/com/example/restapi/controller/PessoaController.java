@@ -68,4 +68,14 @@ public class PessoaController {
         return pessoaService.apagarPessoa(codigo);
     }
 
+    @DeleteMapping
+    public ResponseEntity apagarPessoaPorIndice(@RequestParam (value = "codigo") String codigo){
+       Pessoa pessoa = pessoaService.apagarPessoaPorIndice(codigo);
+       if (pessoa != null){
+           return ResponseEntity.ok().body(pessoa);
+       } else {
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa não encontrada");
+       }
+
+    }
 }

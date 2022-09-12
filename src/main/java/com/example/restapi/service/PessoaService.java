@@ -55,4 +55,16 @@ public class PessoaService {
         return null;
     }
 
+    //remover por indice
+    public Pessoa apagarPessoaPorIndice(String codigo){
+        for (int indice = 0; indice < pessoas.size(); indice = indice + 1){
+            Pessoa pessoa = pessoas.get(indice);
+            if (pessoa.getCodigo().equals(codigo)){
+                pessoas.remove(pessoa);
+                return pessoa;
+            }
+        }
+        return null;
+    }
+
 }
