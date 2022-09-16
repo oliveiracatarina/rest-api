@@ -1,5 +1,6 @@
 package com.example.restapi.service;
 
+import com.example.restapi.dto.DadosAtuaisPessoaDTO;
 import com.example.restapi.models.Endereco;
 import com.example.restapi.models.Pessoa;
 import org.springframework.stereotype.Service;
@@ -16,39 +17,42 @@ public class PessoaService {
     private List<Pessoa> pessoas = new ArrayList<>();
 
 
-
-    public Pessoa montarPessoa(String nome, String data, String email){
-        Pessoa pessoa  = new Pessoa();
+    public Pessoa montarPessoa(String nome, String data, String email) {
+        Pessoa pessoa = new Pessoa();
         pessoa.setNome(nome);
         pessoa.setAniversario(LocalDate.parse(data));
         pessoa.setEmail(email);
         return pessoa;
     }
 
-    public Pessoa criarPessoa(Pessoa pessoa){
+    //criar pessoa (post)
+    public Pessoa criarPessoa(Pessoa pessoa) {
         pessoa.setCodigo(UUID.randomUUID().toString());
         this.pessoas.add(pessoa);
         return pessoa;
     }
 
-    public List<Pessoa> listarPessoas(){
+    public List<Pessoa> listarPessoas() {
         return this.pessoas;
     }
 
+    //buscar pessoa
     public Pessoa buscarPessoa(String codigo) {
         for (int indice = 0; indice < this.pessoas.size(); indice = indice + 1) {
             Pessoa pessoa = pessoas.get(indice);
-            if (pessoa.getCodigo().equals(codigo)){
+            if (pessoa.getCodigo().equals(codigo)) {
                 return pessoa;
             }
         }
-       return null;
+        return null;
     }
+
+    //remover pessoa
     public Pessoa apagarPessoa(String codigo) {
         for (Pessoa pessoa : pessoas) {
             if (pessoa.getCodigo().equals(codigo)) {
-              pessoas.remove(pessoa);
-              return pessoa;
+                pessoas.remove(pessoa);
+                return pessoa;
             }
 
         }
@@ -56,10 +60,10 @@ public class PessoaService {
     }
 
     //remover por indice
-    public Pessoa apagarPessoaPorIndice(String codigo){
-        for (int indice = 0; indice < pessoas.size(); indice = indice + 1){
+    public Pessoa apagarPessoaPorIndice(String codigo) {
+        for (int indice = 0; indice < pessoas.size(); indice = indice + 1) {
             Pessoa pessoa = pessoas.get(indice);
-            if (pessoa.getCodigo().equals(codigo)){
+            if (pessoa.getCodigo().equals(codigo)) {
                 pessoas.remove(pessoa);
                 return pessoa;
             }
@@ -67,4 +71,17 @@ public class PessoaService {
         return null;
     }
 
+    //atualizar uma informação (put)
+    public Pessoa atualizarPessoa(String codigo, DadosAtuaisPessoaDTO dadosAtuais) {
+        for (int indice = 0; indice < pessoas.size(); indice = indice + 1){
+            if (pessoas.get(indice).getCodigo().equals(codigo)) {
+                pessoas.get(indice).setNome(dadosAtuais.getNome());
+                pessoas.get(indice).setEmail(dadosAtuais.getEmail());
+                pessoas.get(indice).setAniversario(dadosAtuais.getAniversario());
+                return pessoas.get(indice);
+            }
+        }
+
+        return null;
+    }
 }
