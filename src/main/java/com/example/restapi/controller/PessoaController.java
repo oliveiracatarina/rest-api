@@ -1,6 +1,7 @@
 package com.example.restapi.controller;
 
 import com.example.restapi.dto.DadosAtuaisPessoaDTO;
+import com.example.restapi.dto.PessoaDTO;
 import com.example.restapi.models.Endereco;
 import com.example.restapi.models.Pessoa;
 import com.example.restapi.service.EnderecoService;
@@ -10,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -45,13 +44,24 @@ public class PessoaController {
         return pessoa;
     }
 
+
+
+
     @GetMapping("buscar")
     public ResponseEntity buscarPessoa(@RequestParam String codigo){
         Pessoa pessoa = pessoaService.buscarPessoa(codigo);
         if (pessoa == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa não encontrada");
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body(pessoa);
+            PessoaDTO pessoaDTO = new PessoaDTO();
+            pessoaDTO.setCodigo(pessoaDTO.getCodigo());
+            pessoaDTO.setNome(pessoaDTO.getNome());
+            pessoaDTO.setAniversario(pessoaDTO.getAniversario());
+            pessoaDTO.setEmail(pessoaDTO.getEmail());
+            pessoaDTO.setEndereco(pessoa.getEndereco().getLogradouro() +", " + pessoa.getEndereco().getNumero() + ", " +
+                    pessoa.getEndereco().getBairro() + ", " + pessoa.getEndereco().getCep() + "," +
+                    pessoa.getEndereco().getCidade() + ", " + pessoa.getEndereco().getEstado());
+            return ResponseEntity.status(HttpStatus.OK).body(pessoaDTO);
         }
     }
 
@@ -66,17 +76,21 @@ public class PessoaController {
     }
 
     @DeleteMapping("apagar")
-    public Pessoa apagarPessoa(@RequestParam (value = "codigo") String codigo ) {
-        return pessoaService.apagarPessoa(codigo);
+    public PessoaDTO apagarPessoa(@RequestParam (value = "codigo") String codigo ) {
+        Pessoa pessoa = pessoaService.apagarPessoa(codigo);
+        if (pessoa != null){
+            return pessoaService.converterParaPessoaDTO(pessoa);
+        }
+        return null;
     }
 
     @DeleteMapping
     public ResponseEntity apagarPessoaPorIndice(@RequestParam (value = "codigo") String codigo){
        Pessoa pessoa = pessoaService.apagarPessoaPorIndice(codigo);
        if (pessoa != null){
-           return ResponseEntity.ok().body(pessoa);
-       } else {
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Pessoa não encontrada");
+       } else {
+           return ResponseEntity.ok().body(pessoaService.converterParaPessoaDTO(pessoa));
        }
 
     }

@@ -1,6 +1,7 @@
 package com.example.restapi.service;
 
 import com.example.restapi.dto.DadosAtuaisPessoaDTO;
+import com.example.restapi.dto.PessoaDTO;
 import com.example.restapi.models.Endereco;
 import com.example.restapi.models.Pessoa;
 import org.springframework.stereotype.Service;
@@ -83,5 +84,20 @@ public class PessoaService {
         }
 
         return null;
+    }
+
+    public PessoaDTO converterParaPessoaDTO(Pessoa pessoa){
+        if (pessoa == null){
+            return null;
+        }
+        PessoaDTO pessoaDTO = new PessoaDTO();
+        pessoaDTO.setCodigo(pessoaDTO.getCodigo());
+        pessoaDTO.setNome(pessoaDTO.getNome());
+        pessoaDTO.setAniversario(pessoaDTO.getAniversario());
+        pessoaDTO.setEmail(pessoaDTO.getEmail());
+        pessoaDTO.setEndereco(pessoa.getEndereco().getLogradouro() +", " + pessoa.getEndereco().getNumero() + ", " +
+                pessoa.getEndereco().getBairro() + ", " + pessoa.getEndereco().getCep() + "," +
+                pessoa.getEndereco().getCidade() + ", " + pessoa.getEndereco().getEstado());
+        return pessoaDTO;
     }
 }
