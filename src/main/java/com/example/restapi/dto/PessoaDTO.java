@@ -48,7 +48,7 @@ public class PessoaDTO {
     public String getEndereco() {
         return this.endereco;
     }
-    public void setEndereco (String endereço){
-        this.endereco = endereço;
+    public void setEndereco (String endereco){
+        this.endereco = endereco;
     }
 }

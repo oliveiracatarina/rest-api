@@ -58,9 +58,7 @@ public class PessoaController {
             pessoaDTO.setNome(pessoaDTO.getNome());
             pessoaDTO.setAniversario(pessoaDTO.getAniversario());
             pessoaDTO.setEmail(pessoaDTO.getEmail());
-            pessoaDTO.setEndereco(pessoa.getEndereco().getLogradouro() +", " + pessoa.getEndereco().getNumero() + ", " +
-                    pessoa.getEndereco().getBairro() + ", " + pessoa.getEndereco().getCep() + "," +
-                    pessoa.getEndereco().getCidade() + ", " + pessoa.getEndereco().getEstado());
+            pessoaDTO.setEndereco(pessoaDTO.getEndereco());
             return ResponseEntity.status(HttpStatus.OK).body(pessoaDTO);
         }
     }
@@ -104,6 +102,11 @@ public class PessoaController {
         } else {
             return ResponseEntity.ok().body(pessoa);
         }
+    }
+
+    @GetMapping ("listarTudo")
+    public List<PessoaDTO> listarTudo(){
+        return pessoaService.listarTudo();
     }
 
 }

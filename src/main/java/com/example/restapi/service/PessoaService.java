@@ -4,6 +4,7 @@ import com.example.restapi.dto.DadosAtuaisPessoaDTO;
 import com.example.restapi.dto.PessoaDTO;
 import com.example.restapi.models.Endereco;
 import com.example.restapi.models.Pessoa;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -17,6 +18,8 @@ public class PessoaService {
 
     private List<Pessoa> pessoas = new ArrayList<>();
 
+    @Autowired
+    private EnderecoService enderecoService;
 
     public Pessoa montarPessoa(String nome, String data, String email) {
         Pessoa pessoa = new Pessoa();
@@ -95,9 +98,18 @@ public class PessoaService {
         pessoaDTO.setNome(pessoaDTO.getNome());
         pessoaDTO.setAniversario(pessoaDTO.getAniversario());
         pessoaDTO.setEmail(pessoaDTO.getEmail());
-        pessoaDTO.setEndereco(pessoa.getEndereco().getLogradouro() +", " + pessoa.getEndereco().getNumero() + ", " +
-                pessoa.getEndereco().getBairro() + ", " + pessoa.getEndereco().getCep() + "," +
-                pessoa.getEndereco().getCidade() + ", " + pessoa.getEndereco().getEstado());
+        pessoaDTO.setEndereco(enderecoService.concatenarEndereco(pessoa.getEndereco()));
         return pessoaDTO;
     }
+
+
+    //listar tudo
+    public List<PessoaDTO> listarTudo(){
+       List<PessoaDTO> lista = new ArrayList<>();
+       for (Pessoa pessoa : pessoas){
+           lista.add(converterParaPessoaDTO(pessoa));
+       }
+        return lista;
+    }
+
 }
