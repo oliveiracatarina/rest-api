@@ -1,6 +1,5 @@
 package com.example.restapi.service;
 
-import com.example.restapi.dto.EnderecoDTO;
 import com.example.restapi.models.Endereco;
 import org.springframework.stereotype.Service;
 
